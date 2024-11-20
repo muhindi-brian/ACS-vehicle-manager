@@ -1,37 +1,58 @@
-<!-- templates/vehicles/add_vehicle.html -->
-
 {% extends 'base_generic.html' %}
 
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center">Add New Vehicle</h1>
     
-    <form method="POST" enctype="multipart/form-data"> <!-- Add enctype -->
+    <form method="POST" enctype="multipart/form-data"> <!-- Add enctype for file upload -->
         {% csrf_token %}
         
-        <div class="form-group">
+        <!-- Vehicle Model -->
+        <div class="form-group mb-3">
             <label for="{{ form.model.id_for_label }}">Vehicle Model</label>
-            {{ form.model }}
+            <div class="input-group">
+                {{ form.model }}
+            </div>
         </div>
         
-        <div class="form-group">
+        <!-- Registration Number -->
+        <div class="form-group mb-3">
             <label for="{{ form.registration_number.id_for_label }}">Registration Number</label>
-            {{ form.registration_number }}
+            <div class="input-group">
+                {{ form.registration_number }}
+            </div>
         </div>
         
-        <div class="form-group">
+        <!-- Vehicle Capacity -->
+        <div class="form-group mb-3">
             <label for="{{ form.capacity.id_for_label }}">Capacity</label>
-            {{ form.capacity }}
+            <div class="input-group">
+                {{ form.capacity }}
+            </div>
         </div>
     
-        <div class="form-group">
+        <!-- Vehicle Status -->
+        <div class="form-group mb-3">
             <label for="{{ form.status.id_for_label }}">Vehicle Status</label>
-            {{ form.status }}
+            <div class="input-group">
+                {{ form.status }}
+            </div>
         </div>
-    
-        <div class="form-group">
+
+        <!-- Vehicle Image -->
+        <div class="form-group mb-3">
             <label for="{{ form.image.id_for_label }}">Vehicle Image</label>
-            {{ form.image }}
+            <div class="input-group">
+                {{ form.image }}
+            </div>
+        </div>
+        
+        <!-- Add a Date Field (Example: Date of Purchase) -->
+        <div class="form-group mb-3">
+            <label for="{{ form.purchase_date.id_for_label }}">Date of Purchase</label>
+            <div class="input-group">
+                <input type="date" class="form-control" id="{{ form.purchase_date.id_for_label }}" name="{{ form.purchase_date.name }}" value="{{ form.purchase_date.value|default:'' }}">
+            </div>
         </div>
     
         <button type="submit" class="btn btn-success mt-3">Add Vehicle</button>

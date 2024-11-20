@@ -20,12 +20,19 @@ urlpatterns = [
     path('add-vehicle/', views.add_vehicle, name='add_vehicle'),
     path('add-booking/', views.add_booking, name='add_booking'),
     path('add-maintenance/', views.add_maintenance, name='add_maintenance'),
+   
+    # Add the URL pattern for viewing, editing, and deleting bookings 
+    path('booking/edit/<int:booking_id>/', views.edit_booking, name='edit_booking'),
+    path('booking/delete/<int:booking_id>/', views.delete_booking, name='delete_booking'),
     path('bookings/', views.bookings_list, name='bookings_list'),
+
     path('logout/', LogoutView.as_view(), {'next_page': '/'}, name='logout'),
     path('maintenance-history/', views.maintenance_history, name='maintenance_history'),
     path('vehicles/<int:pk>/edit/', views.edit_vehicle, name='edit_vehicle'),
     path('vehicles/<int:pk>/delete/', views.delete_vehicle, name='delete_vehicle'),
 
+
+    
 
     # path('add-maintenance/', views.add_maintenance, name='add_maintenance'),
     # path('logout/', auth_views.LogoutView.as_view(), name='logout'),

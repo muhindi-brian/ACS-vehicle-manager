@@ -69,6 +69,14 @@ def delete_vehicle(request, pk):
         return redirect('vehicle_list')
     return render(request, 'vehicles/delete_vehicle.html', {'vehicle': vehicle})
 
+
+
+#BOOKINGS SECTION
+@login_required
+def bookings_list(request):
+    bookings = Booking.objects.all()  # Fetch all bookings from the database
+    return render(request, 'vehicles/bookings_list.html', {'bookings': bookings})
+
 # Create a new booking
 @login_required
 def add_booking(request):
@@ -76,15 +84,35 @@ def add_booking(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('vehicle_list')
+            return redirect('bookings_list')
     else:
         form = BookingForm()
     return render(request, 'vehicles/add_booking.html', {'form': form})
 
+# View to edit a booking
 @login_required
-def bookings_list(request):
-    bookings = Booking.objects.all()  # Fetch all bookings from the database
-    return render(request, 'vehicles/bookings_list.html', {'bookings': bookings})
+def edit_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            return redirect('bookings_list')  # Redirect to the bookings list after saving
+    else:
+        form = BookingForm(instance=booking)
+    return render(request, 'vehicles/add_booking.html', {'form': form})
+
+# View to delete a booking
+@login_required
+def delete_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    if request.method == 'POST':  # Ensure it's a POST request to prevent accidental deletes
+        booking.delete()
+        return redirect('bookings_list')  # Redirect to the bookings list after deletion
+    return render(request, 'vehicles/delete_booking_confirm.html', {'booking': booking})
+
+
+#MAINTENANCE SECTION
 
 # Create maintenance record
 @login_required
@@ -93,7 +121,7 @@ def add_maintenance(request):
         form = MaintenanceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('vehicle_list')
+            return redirect('maintenance_history')
     else:
         form = MaintenanceForm()
     return render(request, 'vehicles/add_maintenance.html', {'form': form})

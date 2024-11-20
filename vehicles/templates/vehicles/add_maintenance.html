@@ -1,4 +1,3 @@
-<!-- templates/vehicles/add_maintenance.html -->
 {% extends 'base_generic.html' %}
 
 {% block content %}
@@ -8,22 +7,26 @@
     <form method="POST">
         {% csrf_token %}
         
-        <div class="form-group">
+        <!-- Vehicle Selection -->
+        <div class="form-group mb-3">
             <label for="vehicle">Vehicle</label>
             {{ form.vehicle }}
         </div>
 
-        <div class="form-group">
+        <!-- Service Date (Updated to Date Picker) -->
+        <div class="form-group mb-3">
             <label for="service_date">Service Date</label>
-            {{ form.service_date }}
+            <input type="date" class="form-control" id="service_date" name="service_date" value="{{ form.service_date.value|default:'' }}">
         </div>
 
-        <div class="form-group">
+        <!-- Service Type -->
+        <div class="form-group mb-3">
             <label for="service_type">Service Type</label>
             {{ form.service_type }}
         </div>
 
-        <div class="form-group">
+        <!-- Cost -->
+        <div class="form-group mb-3">
             <label for="cost">Cost</label>
             {{ form.cost }}
         </div>

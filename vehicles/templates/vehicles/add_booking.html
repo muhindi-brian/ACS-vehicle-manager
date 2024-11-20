@@ -1,46 +1,64 @@
-<!-- templates/vehicles/add_booking.html -->
-
 {% extends 'base_generic.html' %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center">Add New Booking</h1>
+    <h1 class="text-center mb-4">Add New Booking</h1>
 
     <form method="POST">
         {% csrf_token %}
         
-        <!-- Render the form fields -->
-        <div class="form-group">
+        <!-- Vehicle selection -->
+        <div class="form-group mb-3">
             <label for="{{ form.vehicle.id_for_label }}">Vehicle</label>
-            {{ form.vehicle }}
+            <div class="input-group">
+                {{ form.vehicle }}
+            </div>
         </div>
         
-        <div class="form-group">
+        <!-- Customer Name -->
+        <div class="form-group mb-3">
             <label for="{{ form.customer_name.id_for_label }}">Customer Name</label>
-            {{ form.customer_name }}
+            <div class="input-group">
+                {{ form.customer_name }}
+            </div>
         </div>
-        
-        <div class="form-group">
+
+        <!-- Start Date -->
+        <div class="form-group mb-3">
             <label for="{{ form.start_date.id_for_label }}">Start Date</label>
-            {{ form.start_date }}
+            <div class="input-group">
+                <input type="date" class="form-control" id="{{ form.start_date.id_for_label }}" name="{{ form.start_date.name }}" value="{{ form.start_date.value|default:'' }}">
+            </div>
         </div>
-        
-        <div class="form-group">
+
+        <!-- End Date -->
+        <div class="form-group mb-3">
             <label for="{{ form.end_date.id_for_label }}">End Date</label>
-            {{ form.end_date }}
+            <div class="input-group">
+                <input type="date" class="form-control" id="{{ form.end_date.id_for_label }}" name="{{ form.end_date.name }}" value="{{ form.end_date.value|default:'' }}">
+            </div>
         </div>
-        
-        <div class="form-group">
+
+        <!-- Destination -->
+        <div class="form-group mb-3">
             <label for="{{ form.destination.id_for_label }}">Destination</label>
-            {{ form.destination }}
+            <div class="input-group">
+                {{ form.destination }}
+            </div>
         </div>
 
-        <div class="form-group">
+        <!-- Booking Status -->
+        <div class="form-group mb-3">
             <label for="{{ form.status.id_for_label }}">Booking Status</label>
-            {{ form.status }}
+            <div class="input-group">
+                {{ form.status }}
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-success mt-3">Add Booking</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success mt-3">Add Booking</button>
+        </div>
     </form>
 </div>
+
 {% endblock %}
