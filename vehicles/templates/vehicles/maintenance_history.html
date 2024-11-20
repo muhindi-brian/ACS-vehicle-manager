@@ -1,0 +1,38 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Maintenance History</h1>
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'add_maintenance' %}" class="btn btn-success">Add Maintenance</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Vehicle</th>
+                <th>Service Date</th>
+                <th>Service Type</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for maintenance in maintenances %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ maintenance.vehicle.model }}</td>
+                <td>{{ maintenance.service_date }}</td>
+                <td>{{ maintenance.service_type }}</td>
+                <td>${{ maintenance.cost }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No maintenance records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

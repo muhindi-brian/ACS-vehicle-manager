@@ -1,0 +1,41 @@
+<!-- templates/vehicles/bookings_list.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Bookings List</h1>
+
+    <!-- Button to create a new booking -->
+    <a href="{% url 'add_booking' %}" class="btn btn-primary mb-4">Create Booking</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Vehicle</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.vehicle.model }}</td>
+                <td>{{ booking.customer_name }}</td>
+                <td>{{ booking.start_date }}</td>
+                <td>{{ booking.end_date }}</td>
+                <td>{{ booking.destination }}</td>
+                <td>{{ booking.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No bookings available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

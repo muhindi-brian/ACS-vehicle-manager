@@ -1,0 +1,34 @@
+<!-- templates/vehicles/add_maintenance.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Add Vehicle Maintenance</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="vehicle">Vehicle</label>
+            {{ form.vehicle }}
+        </div>
+
+        <div class="form-group">
+            <label for="service_date">Service Date</label>
+            {{ form.service_date }}
+        </div>
+
+        <div class="form-group">
+            <label for="service_type">Service Type</label>
+            {{ form.service_type }}
+        </div>
+
+        <div class="form-group">
+            <label for="cost">Cost</label>
+            {{ form.cost }}
+        </div>
+        
+        <button type="submit" class="btn btn-success mt-3">Add Maintenance</button>
+    </form>
+</div>
+{% endblock %}

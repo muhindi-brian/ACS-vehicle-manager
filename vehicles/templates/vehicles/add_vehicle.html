@@ -1,0 +1,41 @@
+<!-- templates/vehicles/add_vehicle.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Add New Vehicle</h1>
+    
+    <form method="POST" enctype="multipart/form-data"> <!-- Add enctype -->
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.model.id_for_label }}">Vehicle Model</label>
+            {{ form.model }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.registration_number.id_for_label }}">Registration Number</label>
+            {{ form.registration_number }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.capacity.id_for_label }}">Capacity</label>
+            {{ form.capacity }}
+        </div>
+    
+        <div class="form-group">
+            <label for="{{ form.status.id_for_label }}">Vehicle Status</label>
+            {{ form.status }}
+        </div>
+    
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Vehicle Image</label>
+            {{ form.image }}
+        </div>
+    
+        <button type="submit" class="btn btn-success mt-3">Add Vehicle</button>
+    </form>
+    
+</div>
+{% endblock %}

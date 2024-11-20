@@ -1,0 +1,51 @@
+<!-- templates/dashboard.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h2 class="text-center">Welcome to Vehicle Management</h2>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4>Manage Vehicles</h4>
+                </div>
+                <div class="card-body">
+                    <p>View and update vehicle status.</p>
+                    <a href="{% url 'vehicle_list' %}" class="btn btn-primary w-100">Go to Vehicles</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4>Manage Bookings</h4>
+                </div>
+                <div class="card-body">
+                    <p>View and create bookings for vehicles.</p>
+                    <a href="{% url 'add_booking' %}" class="btn btn-primary w-100">Manage Bookings</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4>Manage Maintenance</h4>
+                </div>
+                <div class="card-body">
+                    <p>Track vehicle maintenance records.</p>
+                    <a href="{% url 'add_maintenance' %}" class="btn btn-primary w-100">Manage Maintenance</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Edit Vehicle</h1>
+
+    <form method="POST" enctype="multipart/form-data"> <!-- Include enctype for file uploads -->
+        {% csrf_token %}
+        
+        <!-- Render the form fields -->
+        <div class="form-group">
+            <label for="{{ form.model.id_for_label }}">Vehicle Model</label>
+            {{ form.model }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.registration_number.id_for_label }}">Registration Number</label>
+            {{ form.registration_number }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.capacity.id_for_label }}">Capacity</label>
+            {{ form.capacity }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.status.id_for_label }}">Vehicle Status</label>
+            {{ form.status }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Vehicle Image</label>
+            {{ form.image }}
+            {% if form.instance.image %}
+            <p>Current Image:</p>
+            <img src="{{ form.instance.image.url }}" alt="{{ form.instance.model }} image" style="max-height: 150px;">
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Update Vehicle</button>
+        <a href="{% url 'vehicle_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
+</div>
+{% endblock %}
