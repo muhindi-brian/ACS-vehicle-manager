@@ -25,6 +25,7 @@ urlpatterns = [
     path('booking/edit/<int:booking_id>/', views.edit_booking, name='edit_booking'),
     path('booking/delete/<int:booking_id>/', views.delete_booking, name='delete_booking'),
     path('bookings/', views.bookings_list, name='bookings_list'),
+    path('booking/calendar/', views.booking_calendar, name='booking_calendar'),
 
     path('logout/', LogoutView.as_view(), {'next_page': '/'}, name='logout'),
     path('maintenance-history/', views.maintenance_history, name='maintenance_history'),

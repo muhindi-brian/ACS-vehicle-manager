@@ -1,10 +1,18 @@
 <!-- templates/vehicles/bookings_list.html -->
 
 {% extends 'base_generic.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center">Bookings List</h1>
+    {% if messages %}
+    <div class="alert alert-danger">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- Button to create a new booking -->
     <a href="{% url 'add_booking' %}" class="btn btn-primary mb-4">Create Booking</a>

@@ -1,0 +1,41 @@
+<!-- templates/vehicles/booking_calendar.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Vehicle Booking Calendar</h1>
+
+    <!-- FullCalendar -->
+    <div id="calendar"></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            // Calendar options
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: [
+                {% for event in events %}
+                    {
+                        title: '{{ event.title }}',
+                        start: '{{ event.start }}',  // Ensure proper date format is used
+                        end: '{{ event.end }}',      // Ensure proper date format is used
+                        description: '{{ event.description }}'
+                    },
+                {% empty %}
+                    // No bookings available
+                {% endfor %}
+            ],
+            eventClick: function(event) {
+                alert('Booking: ' + event.title + '\nFrom: ' + event.start.format() + '\nTo: ' + event.end.format());
+            }
+        });
+    });
+</script>
+{% endblock %}

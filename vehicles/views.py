@@ -7,6 +7,8 @@ from .models import Vehicle, Booking, Maintenance
 from .forms import VehicleForm, BookingForm, MaintenanceForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
+from datetime import datetime
+
 
 
 
@@ -78,15 +80,49 @@ def bookings_list(request):
     return render(request, 'vehicles/bookings_list.html', {'bookings': bookings})
 
 # Create a new booking
+# @login_required
+# def add_booking(request):
+#     if request.method == 'POST':
+#         form = BookingForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('bookings_list')
+#     else:
+#         form = BookingForm()
+#     return render(request, 'vehicles/add_booking.html', {'form': form})
+
+# Create a new booking
 @login_required
 def add_booking(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
+        
         if form.is_valid():
+            # Get form data
+            start_date = form.cleaned_data.get('start_date')
+            end_date = form.cleaned_data.get('end_date')
+            vehicle = form.cleaned_data.get('vehicle')
+
+            # Check for overlapping bookings for the selected vehicle
+            overlapping_bookings = Booking.objects.filter(vehicle=vehicle).filter(
+                start_date__lt=end_date,  # Start date is before the end date of the new booking
+                end_date__gt=start_date   # End date is after the start date of the new booking
+            )
+
+            # If overlapping bookings exist, show a warning message and prevent saving
+            if overlapping_bookings.exists():
+                messages.error(request, 'The selected vehicle is already booked for these dates.')
+                return redirect('add_booking')  # Redirect to the booking form with an error message
+
+            # If no overlap, save the form
             form.save()
+
+            # Redirect to the bookings list page
             return redirect('bookings_list')
+
     else:
         form = BookingForm()
+
     return render(request, 'vehicles/add_booking.html', {'form': form})
 
 # View to edit a booking
@@ -110,6 +146,24 @@ def delete_booking(request, booking_id):
         booking.delete()
         return redirect('bookings_list')  # Redirect to the bookings list after deletion
     return render(request, 'vehicles/delete_booking_confirm.html', {'booking': booking})
+
+# Calendar View
+def booking_calendar(request):
+    # Get all bookings to display on the calendar
+    bookings = Booking.objects.all()
+
+    # Prepare booking data for FullCalendar
+    events = []
+    for booking in bookings:
+        events.append({
+            'title': f"Booked by {booking.customer_name}",
+            'start': booking.start_date.strftime('%Y-%m-%d'),  # Format the date to FullCalendar format
+            'end': booking.end_date.strftime('%Y-%m-%d'),      # Format the date to FullCalendar format
+            'description': booking.destination,
+        })
+
+    # Return the data to the template
+    return render(request, 'vehicles/booking_calendar.html', {'events': events})
 
 
 #MAINTENANCE SECTION

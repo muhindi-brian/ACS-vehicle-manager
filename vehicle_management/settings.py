@@ -118,11 +118,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
+# If you are serving static files during development
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # If you have a global static folder
+]
+
+# This is for collecting static files into one location for production
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # Media settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 
 # Static files (CSS, JavaScript, Images)
 # STATIC_URL = '/static/'
