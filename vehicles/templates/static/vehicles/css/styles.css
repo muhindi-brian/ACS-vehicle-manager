@@ -59,3 +59,9 @@ body.dark-mode .table td {
     border-radius: 5px;
     margin-top: 10px;
 }
+/* Example CSS for the status badges */
+.badge {
+    font-size: 1rem; /* Optional: Adjust size */
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}

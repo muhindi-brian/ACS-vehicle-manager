@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-+ddw^+%tt4g112!)=5g^0=uxk5t%p6@cfx)^&$v-ht%ll%g9=#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'africacallingsafaris.co', '34.133.235.156', 'localhost']
+
 
 LOGIN_REDIRECT_URL = '/dashboard/' 
 

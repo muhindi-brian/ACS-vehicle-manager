@@ -37,7 +37,13 @@
                 <td>{{ booking.start_date }}</td>
                 <td>{{ booking.end_date }}</td>
                 <td>{{ booking.destination }}</td>
-                <td>{{ booking.status }}</td>
+                <td>
+                    <!-- Add color coding to status -->
+                    <span class="badge 
+                        {% if booking.status == 'confirmed' %}bg-success{% elif booking.status == 'pending' %}bg-warning{% elif booking.status == 'completed' %}bg-danger{% endif %}">
+                        {{ booking.get_status_display }}
+                    </span>
+                </td>
                 <td>
                     <!-- Edit and Delete buttons -->
                     <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning btn-sm">Edit</a>
