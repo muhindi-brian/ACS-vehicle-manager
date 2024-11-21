@@ -67,3 +67,43 @@ body.dark-mode .table td {
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
 }
+
+
+/* Make the calendar container responsive */
+#calendar {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+    .fc-toolbar {
+        font-size: 14px;
+    }
+    
+    .fc-header-toolbar {
+        display: block;
+        text-align: center;
+    }
+    
+    .fc-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    /* Adjust the calendar title */
+    .fc-center h2 {
+        font-size: 18px;
+    }
+    
+    /* Adjust the calendar cells */
+    .fc-day {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    /* Adjust event titles on mobile */
+    .fc-event-title {
+        font-size: 10px;
+    }
+}

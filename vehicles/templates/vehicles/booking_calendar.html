@@ -1,7 +1,5 @@
-<!-- templates/vehicles/booking_calendar.html -->
 {% extends 'base_generic.html' %}
 {% load static %}
-
 
 {% block content %}
 <div class="container mt-5">
@@ -11,21 +9,26 @@
     <div id="calendar"></div>
 </div>
 
+<!-- FullCalendar JS and CSS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
+
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
-            // Calendar options
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            defaultView: 'month', // Default view on larger screens
             events: [
                 {% for event in events %}
                     {
                         title: '{{ event.title }}',
-                        start: '{{ event.start }}',  // Ensure proper date format is used
-                        end: '{{ event.end }}',      // Ensure proper date format is used
+                        start: '{{ event.start }}',
+                        end: '{{ event.end }}',
                         description: '{{ event.description }}'
                     },
                 {% empty %}
@@ -34,6 +37,14 @@
             ],
             eventClick: function(event) {
                 alert('Booking: ' + event.title + '\nFrom: ' + event.start.format() + '\nTo: ' + event.end.format());
+            },
+            // Make the calendar responsive
+            windowResize: function(view) {
+                if ($(window).width() < 768) {
+                    $('#calendar').fullCalendar('changeView', 'agendaDay');
+                } else {
+                    $('#calendar').fullCalendar('changeView', 'month');
+                }
             }
         });
     });
