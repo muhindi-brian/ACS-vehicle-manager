@@ -1,7 +1,7 @@
 # vehicles/views.py
 
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from .models import Vehicle, Booking, Maintenance
 from .forms import VehicleForm, BookingForm, MaintenanceForm
@@ -9,8 +9,31 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from datetime import datetime
 from django.contrib import messages
+from .forms import CMSForm
+from .models import CMS
 
 
+def my_view(request):
+    cms = CMS.objects.first()  # Get the first CMS entry
+    return render(request, 'base_generic.html', {'cms': cms})
+
+def cms_dashboard(request):
+    # Retrieve existing CMS settings
+    cms = CMS.objects.first()
+
+    if request.method == 'POST':
+        form = CMSForm(request.POST, request.FILES, instance=cms)
+        if form.is_valid():
+            form.save()
+            return redirect('cms_dashboard')  # Redirect to CMS dashboard after save
+    else:
+        form = CMSForm(instance=cms)
+
+    return render(request, 'admin/cms_dashboard.html', {'form': form})
+
+def cms_dashboard(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("You are not authorized to access this page.")
 
 
 # Login view

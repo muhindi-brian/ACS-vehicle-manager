@@ -14,6 +14,8 @@ class CustomLogoutView(LogoutView):
         return self.post(request, *args, **kwargs)
 
 urlpatterns = [
+    path('admin/cms/', views.cms_dashboard, name='cms_dashboard'),
+
     path('', views.login_view, name='login'),  # Set login as the homepage
     path('dashboard/', views.dashboard, name='dashboard'),
     path('vehicles/', views.vehicle_list, name='vehicle_list'),

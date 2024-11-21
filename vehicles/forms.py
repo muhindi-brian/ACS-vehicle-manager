@@ -2,6 +2,12 @@
 
 from django import forms
 from .models import Vehicle, Booking, Maintenance
+from .models import CMS
+
+class CMSForm(forms.ModelForm):
+    class Meta:
+        model = CMS
+        fields = ['logo']
 
 # class VehicleForm(forms.ModelForm):
 #     class Meta:

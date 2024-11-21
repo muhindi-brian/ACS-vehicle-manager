@@ -3,6 +3,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class CMS(models.Model):
+    logo = models.ImageField(upload_to='cms/logos/', null=True, blank=True)
+    # You can add other fields for other CMS content (e.g., about text, footer text, etc.)
+
+    def __str__(self):
+        return "CMS Settings"
+
 # Define Vehicle model
 # class Vehicle(models.Model):
 #     VEHICLE_STATUS = [

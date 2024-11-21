@@ -1,0 +1,17 @@
+<!-- templates/admin/cms_dashboard.html -->
+<h1>CMS Dashboard</h1>
+
+<h3>Update Logo</h3>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Update Logo</button>
+</form>
+
+<h3>Current Logo</h3>
+{% if cms.logo %}
+    <img src="{{ cms.logo.url }}" alt="Current Logo" width="150">
+{% else %}
+    <p>No logo set</p>
+{% endif %}
