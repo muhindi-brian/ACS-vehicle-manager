@@ -1,7 +1,3 @@
-Here's a template for your `README.md` file that outlines the details of the project, including how to run it. You can customize it further based on specific details of your project.
-
----
-
 # Vehicle Management System
 
 A web-based vehicle management system built with Django that allows users to manage vehicles, bookings, and maintenance. The system includes features such as booking vehicles, tracking maintenance schedules, and viewing booking statuses. 
