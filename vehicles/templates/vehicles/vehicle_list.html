@@ -3,31 +3,33 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Vehicle List</h1>
+    <h1 class="text-center mb-4">Fleet Vehicle List</h1>
 
-    <!-- Button to add a vehicle -->
+    <!-- Add Vehicle Button -->
     <div class="mb-4 text-end">
         <a href="{% url 'add_vehicle' %}" class="btn btn-primary">Add New Vehicle</a>
     </div>
 
-    <!-- Vehicle list section -->
+    <!-- Vehicle Cards -->
     <div class="row">
         {% if vehicles %}
             {% for vehicle in vehicles %}
             <div class="col-md-4 mb-4">
-                <div class="card">
-                    <!-- Display vehicle image or placeholder if none -->
+                <div class="card shadow-sm">
+                    <!-- Vehicle Image -->
                     {% if vehicle.image %}
                     <img src="{{ vehicle.image.url }}" class="card-img-top" alt="{{ vehicle.model }} image">
                     {% else %}
                     <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Placeholder image">
                     {% endif %}
+
                     <div class="card-body">
+                        <!-- Vehicle Details -->
                         <h5 class="card-title">{{ vehicle.model }}</h5>
                         <p class="card-text">
-                            Registration: {{ vehicle.registration_number }}<br>
-                            Capacity: {{ vehicle.capacity }}<br>
-                            Status: 
+                            <strong>Registration:</strong> {{ vehicle.registration_number }}<br>
+                            <strong>Capacity:</strong> {{ vehicle.capacity }} seats<br>
+                            <strong>Status:</strong>
                             <span class="badge 
                                 {% if vehicle.status == 'available' %} bg-success
                                 {% elif vehicle.status == 'booked' %} bg-warning
@@ -35,9 +37,12 @@
                                 {% endif %}
                             ">
                                 {{ vehicle.status|title }}
-                            </span>
+                            </span><br>
+                            <strong>Cost Per Mile:</strong> 
+                            {{ vehicle.cost_per_mile|default:"Not Available" }}
                         </p>
-                        <!-- Action buttons -->
+
+                        <!-- Action Buttons -->
                         <div class="d-flex justify-content-between">
                             <a href="{% url 'edit_vehicle' vehicle.id %}" class="btn btn-sm btn-warning">Edit</a>
                             <a href="{% url 'delete_vehicle' vehicle.id %}" class="btn btn-sm btn-danger">Delete</a>
@@ -47,7 +52,10 @@
             </div>
             {% endfor %}
         {% else %}
-            <p class="text-center">No vehicles found. <a href="{% url 'add_vehicle' %}">Add one now</a>.</p>
+            <!-- No Vehicles Found -->
+            <div class="text-center">
+                <p>No vehicles found. <a href="{% url 'add_vehicle' %}">Add one now</a>.</p>
+            </div>
         {% endif %}
     </div>
 </div>

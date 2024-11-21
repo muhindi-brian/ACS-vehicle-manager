@@ -8,38 +8,53 @@
     <form method="POST" enctype="multipart/form-data"> <!-- Include enctype for file uploads -->
         {% csrf_token %}
         
-        <!-- Render the form fields -->
-        <div class="form-group">
+        <!-- Vehicle Model -->
+        <div class="form-group mb-3">
             <label for="{{ form.model.id_for_label }}">Vehicle Model</label>
             {{ form.model }}
         </div>
         
-        <div class="form-group">
+        <!-- Registration Number -->
+        <div class="form-group mb-3">
             <label for="{{ form.registration_number.id_for_label }}">Registration Number</label>
             {{ form.registration_number }}
         </div>
         
-        <div class="form-group">
-            <label for="{{ form.capacity.id_for_label }}">Capacity</label>
+        <!-- Capacity -->
+        <div class="form-group mb-3">
+            <label for="{{ form.capacity.id_for_label }}">Capacity (Number of Seats)</label>
             {{ form.capacity }}
         </div>
 
-        <div class="form-group">
+        <!-- Status -->
+        <div class="form-group mb-3">
             <label for="{{ form.status.id_for_label }}">Vehicle Status</label>
             {{ form.status }}
         </div>
 
-        <div class="form-group">
+        <!-- Cost Per Mile -->
+        <div class="form-group mb-3">
+            <label for="{{ form.cost_per_mile.id_for_label }}">Cost Per Mile</label>
+            {{ form.cost_per_mile }}
+        </div>
+
+        <!-- Vehicle Image -->
+        <div class="form-group mb-3">
             <label for="{{ form.image.id_for_label }}">Vehicle Image</label>
             {{ form.image }}
             {% if form.instance.image %}
-            <p>Current Image:</p>
-            <img src="{{ form.instance.image.url }}" alt="{{ form.instance.model }} image" style="max-height: 150px;">
+            <div class="mt-2">
+                <p>Current Image:</p>
+                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.model }} image" style="max-height: 150px; border: 1px solid #ddd;">
+            </div>
             {% endif %}
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Update Vehicle</button>
-        <a href="{% url 'vehicle_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+        <!-- Submit and Cancel Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-primary">Update Vehicle</button>
+            <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
     </form>
 </div>
 {% endblock %}
